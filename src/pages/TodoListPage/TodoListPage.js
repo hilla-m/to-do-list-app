@@ -1,53 +1,65 @@
 import React, { useState } from 'react';
-import { Form, Container, Row, Button, FormLabel } from 'react-bootstrap';
-import TaskRow from '../../components/TaskRow/TaskRow';
+import { Container, Form, FormLabel, Row, Button } from 'react-bootstrap';
+// import TaskRow from '../../components/TaskRow/TaskRow';
 import './TodoListPage.css';
-import Task from '../../models/TaskModel'
 
-function TodoListPage({ tasks ,handleCheckedBox }) {
+function TodoListPage({ tasks, handleCheckedBox, handleDeleteTask }) {
 
     const [filter, setFilter] = useState("all");
+    const [btnDelete, setBtnDelete] = useState(false);
 
     let filteredTasks = [];
 
-    if (filter==="all") {
+    if (filter === "all") {
         filteredTasks = [...tasks];
     }
 
-    if (filter==="active") {
+    if (filter === "active") {
         filteredTasks = tasks.filter(task => !task.taskChecked);
     }
 
-    if (filter==="completed") {
+    if (filter === "completed") {
         filteredTasks = tasks.filter(task => task.taskChecked);
     }
 
-    const checkBoxChange = (index, value) => {
+    // const checkBoxChange = (id, value) => {
+    //     handleCheckedBox(id, value);
+    // }
 
-        handleCheckedBox( index, value );
+    function checkBoxChange (id, value) {
+        handleCheckedBox(id, value);
     }
 
-    const tasksRows = filteredTasks.map((task, index) => <Form.Check type="checkbox" id={index} key={index} label={task.taskText} checked={task.taskChecked} onChange={()=>checkBoxChange(index, !task.taskChecked )} className={ task.taskChecked ? "isChecked" : ""}/>); 
+    function deleteTask(id) {
+        handleDeleteTask(id);
+    }
+
+    const tasksRows = filteredTasks.map((task) =>
+    // <TaskRow task={task}/>
+        <Row key={task.taskId} className="task-row" onMouseOver={() => setBtnDelete(true)} onMouseOut={() => setBtnDelete(false)}>
+            <Form.Check type="checkbox" key={task.taskId} label={task.taskText} checked={task.taskChecked} onChange={() => checkBoxChange(task.taskId, !task.taskChecked)} className={task.taskChecked ? "isChecked" : ""} />
+            <Button value={btnDelete} className={btnDelete ? "btn-delete visible" : "btn-delete hidden"} variant="primary" onClick={() => deleteTask(task.taskId)}>X</Button>
+        </Row>
+    );
 
     // items left counter
-    let counter=0;
-    tasks.filter( task => !task.taskChecked ? counter++ : counter);
+    let counter = 0;
+    tasks.filter(task => !task.taskChecked ? counter++ : counter);
 
     return (
         <div>
             <Container className="todos-container">
-                <Row>
+                <Row className="tasks-rows">
                     {tasksRows}
                 </Row>
-                {  tasksRows && tasksRows.length > 0 ? 
-                <Row>
-                    <FormLabel>{counter} items left </FormLabel>
-                    <Button className="all" variant="primary" onClick={() => setFilter("all")}>All</Button>
-                    <Button className="active" variant="primary" onClick={() => setFilter("active")}>Active</Button>
-                    <Button className="completed" variant="primary" onClick={() => setFilter("completed")}>Completed</Button>
-                </Row>
-                : "" }
-                {/* </Form> */}
+                {tasks && tasks.length > 0 ?
+                    <Row className="filter-row">
+                        <FormLabel>{counter} items left </FormLabel>
+                        <Button className={filter === "all" ? "filter" : ""} variant="primary" onClick={() => setFilter("all")}>All</Button>
+                        <Button className={filter === "active" ? "filter" : ""} variant="primary" onClick={() => setFilter("active")}>Active</Button>
+                        <Button className={filter === "completed" ? "filter" : ""} variant="primary" onClick={() => setFilter("completed")}>Completed</Button>
+                    </Row>
+                    : ""}
             </Container>
         </div>
     );

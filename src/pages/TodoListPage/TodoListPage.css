@@ -1,3 +1,9 @@
+.todos-container{
+    padding: 20px;
+    margin: 0 auto;
+    width: 40%;
+}
+
 .todos-container .title , .todos-container Form{
     text-align: center;
 }
@@ -5,4 +11,52 @@
 .todos-container .isChecked{
     color:grey;
     text-decoration: line-through;
+}
+
+.todos-container .form-check-input{
+    margin-right: 10px ;
+}
+
+.todos-container .btn {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    margin: 2px;
+    outline: none;
+}
+
+
+.todos-container .filter{
+    color: teal;
+    font-weight: bold;
+}
+
+.todos-container .form-label{
+    margin-right: 20px;
+    color:teal;
+    /* font-weight: bold; */
+}
+
+.todos-container .filter-row{
+    margin: 20px 0;
+}
+
+.todos-container .task-row{
+    font-family: cursive;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.todos-container .visible{
+    visibility: visible;
+}
+
+.todos-container .hidden{
+    visibility: hidden;
+}
+
+
+.todos-container .btn-delete{
+    color: red;
 }

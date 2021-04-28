@@ -1,5 +1,32 @@
-.input-container{
+.input-container h1 ,  .input-container .input-form{
   text-align: center;
+  color:teal;
+  font-size: 50px;
+  font-family: cursive;
 }
 
-.input-container 
+.input-container .btn{
+  height: 30px;
+  width: 120px;
+  font-size: 16px;
+  background-color: teal;
+  color: white;
+  border-color: transparent;
+  border-radius: 20px;
+  outline: none;
+}
+
+.input-container .Form.Control{
+  font-size: 16px;
+  height: 30px;
+}
+
+.input-container .text-box{
+  height: 30px;
+  width: 300px;
+  border-width: 1px;
+  font-size: 16px;
+  padding-left: 10px;
+  border-radius: 5px;
+  margin: 10px;
+}
