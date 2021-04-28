@@ -1,0 +1,8 @@
+.todos-container .title , .todos-container Form{
+    text-align: center;
+}
+
+.todos-container .isChecked{
+    color:grey;
+    text-decoration: line-through;
+}
