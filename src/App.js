@@ -15,7 +15,7 @@ function App() {
 
     const taskId = uuidv4();
 
-    setTasks(tasks.concat(new Task(taskId, taskInput, false)));
+    setTasks(tasks.concat(new Task(taskId, taskInput, false, false)));
     setTaskInput("");
   }
 
@@ -28,10 +28,8 @@ function App() {
   }
 
   function handleDeleteTask(id) {
-
     const tempTasks = [...tasks];
     const taskToDelete = tempTasks.find(task => task.taskId === id);
-
     if (taskToDelete.taskChecked) {
       tempTasks.splice(tempTasks.indexOf(taskToDelete), 1);
       setTasks(tempTasks);
