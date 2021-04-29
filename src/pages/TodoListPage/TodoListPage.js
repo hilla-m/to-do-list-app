@@ -3,10 +3,8 @@ import { Container, Form, FormLabel, Row, Button } from 'react-bootstrap';
 // import TaskRow from '../../components/TaskRow/TaskRow';
 import './TodoListPage.css';
 
-function TodoListPage({ tasks, handleCheckedBox, handleDeleteTask }) {
-
+function TodoListPage({ tasks, handleCheckedBox, handleDeleteTask, handleRowHover }) {
     const [filter, setFilter] = useState("all");
-    const [btnDelete, setBtnDelete] = useState(false);
 
     let filteredTasks = [];
 
@@ -26,8 +24,12 @@ function TodoListPage({ tasks, handleCheckedBox, handleDeleteTask }) {
     //     handleCheckedBox(id, value);
     // }
 
-    function checkBoxChange (id, value) {
+    function checkBoxChange(id, value) {
         handleCheckedBox(id, value);
+    }
+
+    function hoverRow(id, value) {
+        handleRowHover(id, value);
     }
 
     function deleteTask(id) {
@@ -35,10 +37,9 @@ function TodoListPage({ tasks, handleCheckedBox, handleDeleteTask }) {
     }
 
     const tasksRows = filteredTasks.map((task) =>
-    // <TaskRow task={task}/>
-        <Row key={task.taskId} className="task-row" onMouseOver={() => setBtnDelete(true)} onMouseOut={() => setBtnDelete(false)}>
+        <Row key={task.taskId} className="task-row" onMouseOver={() => hoverRow(task.taskId, true)} onMouseOut={() => hoverRow(task.taskId, false)}>
             <Form.Check type="checkbox" key={task.taskId} label={task.taskText} checked={task.taskChecked} onChange={() => checkBoxChange(task.taskId, !task.taskChecked)} className={task.taskChecked ? "isChecked" : ""} />
-            <Button value={btnDelete} className={btnDelete ? "btn-delete visible" : "btn-delete hidden"} variant="primary" onClick={() => deleteTask(task.taskId)}>X</Button>
+            <Button className={task.taskHovered ? "btn-delete visible" : "btn-delete hidden"} variant="primary" onClick={() => deleteTask(task.taskId)}>X</Button>
         </Row>
     );
 
