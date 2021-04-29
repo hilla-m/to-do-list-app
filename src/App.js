@@ -22,11 +22,8 @@ function App() {
   function handleCheckedBox(id, value) {
     // console.log("handleCheckedBox", id, value);
     const tempTasks = [...tasks];
-
     tempTasks.map(task => { if (task.taskId === id) { task.taskChecked = value } });
-
     // tempTasks[index].taskChecked = value;
-
     setTasks(tempTasks);
   }
 
@@ -46,6 +43,12 @@ function App() {
     }
   }
 
+  function handleRowHover(id, value) {
+    const tempTasks = [...tasks];
+    tempTasks.map(task => { if (task.taskId === id) { task.taskHovered = value } });
+    setTasks(tempTasks);
+  }
+
   return (
     <div>
       <Container className="input-container">
@@ -55,7 +58,7 @@ function App() {
           <Button variant="primary" onClick={addTask}>Add Task</Button>
         </Form>
       </Container>
-      < TodoListPage tasks={tasks} handleCheckedBox={handleCheckedBox} handleDeleteTask={handleDeleteTask} />
+      < TodoListPage tasks={tasks} handleCheckedBox={handleCheckedBox} handleDeleteTask={handleDeleteTask} handleRowHover={handleRowHover} />
     </div>
   );
 }
